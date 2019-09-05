@@ -1,0 +1,11 @@
+appVersion: 1.4.12
+description: Mosquitto
+engine: gotpl
+keywords:
+- mosquitto
+maintainers:
+- name: smizy
+name: mosquitto
+sources:
+- https://github.com/smizy/docker-mosquitto
+version: 0.1.3

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }} 
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: headless
+    port: 1883
+    targetPort: 1883
+    type: TCP
+  selector:
+    app: {{ template "fullname" . }}

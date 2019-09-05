@@ -1,0 +1,47 @@
+image: smizy/mosquitto:1.4.12-alpine
+imagePullPolicy: IfNotPresent
+ingress:
+  enabled: true
+persistence:
+  enabled: false
+config: |-
+  log_dest stdout
+  listener 1883
+  listener 9090 
+  protocol websockets
+service:
+  enabled: true
+  type: NodePort
+  port: 1883
+
+nginx-ingress:
+  controller:
+  #  name: nginx
+    #configMapNamespace: default
+    service:
+      ports:
+        http: 8080
+      targetPorts:
+        http: 8080
+    containerPort:
+      http: 8080
+    nodeSelector:
+      beta.kubernetes.io/os: linux
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 10
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 80
+    service:
+  #    enableHttp: true
+  #    enableHttps: true
+      type: NodePort
+  #  metrics:
+  #    enabled: true
+    #headers: #--- relevant for ip logging in keycloak
+  defaultBackend:
+    service:
+      servicePort: 8080
+    nodeSelector:
+      beta.kubernetes.io/os: linux
