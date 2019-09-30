@@ -16,6 +16,9 @@ service:
 
 nginx-ingress:
   controller:
+ ### open port on ingress controller side
+ ### tcp:
+ ###  1883: "default/mqtt:1883"
   #  name: nginx
     #configMapNamespace: default
     service:
@@ -45,3 +48,4 @@ nginx-ingress:
       servicePort: 8080
     nodeSelector:
       beta.kubernetes.io/os: linux
+ 
